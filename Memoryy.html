@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memories🎮</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0A0F29, #3A1C71); 
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh; /* Penting untuk animasi memenuhi layar */
+            position: relative; /* Penting untuk posisi absolut/fixed emoji */
+            overflow-x: hidden;
+        }
+        h1 {
+            color: #E0B0FF;
+            margin-bottom: 30px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+        .gallery-item img {
+            width: 100%;
+            max-width: 300px; 
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+        p {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        .back-button {
+            display: block;
+            background: #FFD700;
+            color: #0A0F29;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 40px;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.2s;
+        }
+        .back-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- STYLE UNTUK ANIMASI EMOJI KUE --- */
+        .emoji-animation {
+            position: fixed; /* Menggunakan fixed agar tidak terpengaruh scroll */
+            font-size: 2em;
+            pointer-events: none; /* Agar tidak mengganggu klik */
+            opacity: 0;
+            animation: floatUpAndFade 4s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes floatUpAndFade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-70vh) scale(1.5); opacity: 0; }
+        }
+        /* --- END STYLE EMOJI --- */
+
+    </style>
+</head>
+<body>
+    
+    <audio id="birthday-music" loop>
+        <source src="NIKIlowkey.mp3" type="audio/mp3">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    <button id="auto-play-btn" style="display: none;"></button> 
+
+    <h1>GALLERY KENANGAN 🎮</h1>
+
+    <div class="gallery">
+        
+        <div class="gallery-item">
+            <img src="Screenshot_2025-07-06-23-55-10-444_com.roblox.client~2.jpg" alt="Screenshot Genshin 1">
+            <p></p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="IMG_20251122_052518_375.jpg" alt="Screenshot Genshin 2">
+            <p></p>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="IMG_20251122_052558_771.jpg" alt="Screenshot Genshin 3">
+            <p></p>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="IMG_20251122_052636_844.jpg" alt="Screenshot Genshin 4">
+            <p></p>
+        </div>
+      
+        <div class="gallery-item">
+            <img src="IMG_20251109_093924_076.jpg" alt="Screenshot Genshin 5">
+            <p></p>
+        </div>
+      
+        <div class="gallery-item">
+            <img src="IMG_20251122_052339_828.jpg" alt="Screenshot Genshin 6">
+            <p></p>
+        </div>
+      
+        <div class="gallery-item">
+            <img src="20251109221105.jpg" alt="Screenshot Genshin 7">
+            <p></p>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="IMG_20251109_093911_910.jpg" alt="Screenshot Genshin 7">
+            <p></p>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="IMG_20251122_052601_890.jpg" alt="Screenshot Genshin 7">
+            <p></p>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="IMG_20251122_052511_510.jpg" alt="Screenshot Genshin 7">
+            <p></p>
+        </div>
+        
+    </div> 
+    
+    <a href="HBD.html" class="back-button">Kembali ke Ucapan</a>
+    
+    <script>
+        // Fungsi untuk animasi emoji kue (disalin dari HBD.html)
+        function launchCakeEmojis() {
+            const numberOfEmojis = 5; // Jumlah emoji per peluncuran
+            const emoji = '🎂'; 
+            
+            for (let i = 0; i < numberOfEmojis; i++) {
+                const emojiElement = document.createElement('div');
+                emojiElement.textContent = emoji;
+                emojiElement.classList.add('emoji-animation');
+                
+                // Posisi awal acak di bagian bawah layar
+                emojiElement.style.left = `${Math.random() * 90 + 5}%`; // 5% hingga 95% lebar layar
+                emojiElement.style.bottom = `-20px`; // Muncul dari bawah
+                
+                // Tambahkan sedikit penundaan pada setiap emoji agar terlihat menyebar
+                emojiElement.style.animationDelay = `${Math.random() * 0.5}s`; 
+                
+                document.body.appendChild(emojiElement);
+
+                // Hapus emoji setelah animasi selesai
+                emojiElement.addEventListener('animationend', () => {
+                    emojiElement.remove();
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const music = document.getElementById('birthday-music');
+            const autoPlayBtn = document.getElementById('auto-play-btn');
+            
+            // --- AUTORUN EMOJI SAAT HALAMAN DIMUAT ---
+            // Panggil launchCakeEmojis setiap 2 detik untuk efek looping
+            setInterval(launchCakeEmojis, 2000); 
+            // --- END AUTORUN ---
+
+            // LOGIKA AUTOPLAY MUSIK
+            music.play().catch(error => {
+                autoPlayBtn.addEventListener('click', () => {
+                    music.play().catch(e => console.error("Gagal putar musik setelah klik:", e));
+                });
+                autoPlayBtn.click();
+            });
+        });
+    </script>
+    </body>
+</html>

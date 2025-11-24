@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>happy birthday scinoraa! 🎉</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'segoe ui', tahoma, geneva, verdana, sans-serif; 
+            background: linear-gradient(135deg, #0a0f29 0%, #3a1c71 100%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        h1 {
+            color: #e0b0ff;
+            margin-top: 40px;
+            font-size: 2.5em; 
+            text-shadow: 0 0 10px rgba(224, 176, 255, 0.5); 
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 16px;
+            padding: 30px; 
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            text-align: left; 
+        }
+        .card img.inside-card-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px; 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #video-surprise {
+            margin: 30px auto;
+            max-width: 600px;
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); 
+        }
+        #video-surprise video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        #surprise-collage {
+            display: none; 
+            position: relative;
+            max-width: 350px; 
+            margin: 40px auto 20px auto; 
+            padding: 0; 
+            border-radius: 15px;
+            box-shadow: 0 0 35px rgba(224, 176, 255, 1); 
+            text-align: center;
+            overflow: hidden; 
+        }
+        
+        #surprise-collage img.single-gift-photo { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            border-radius: 12px; 
+            border: 3px solid #ffd700; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); 
+            transition: transform 0.5s ease-in-out; 
+        }
+        #surprise-collage img.single-gift-photo:hover {
+            transform: scale(1.02); 
+        }
+        
+        /* Grup tombol */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 350px;
+            margin: 20px auto 40px auto;
+        }
+
+        .button-group > * {
+            margin-top: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 300px;
+            text-decoration: none;
+            display: block;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* Styling tombol khusus */
+        #btnKenangan {
+            display: none;
+            background: #50c878; 
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(80, 200, 120, 0.4);
+        }
+        #btnPesanKhusus {
+            background: #FF69B4;
+            color: #0a0f29;
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+            border: none;
+        }
+        #btnSongForYou {
+            background: #8A2BE2;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+            border: none;
+        }
+
+        #btnKenangan:hover, #btnPesanKhusus:hover, #btnSongForYou:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+
+        #pesan-khusus-card {
+            background: rgba(255, 255, 255, 0.15); 
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2); 
+            border: 2px solid #50c878; 
+            text-align: center;
+            display: none; 
+            animation: fadeIn 1s ease-out; 
+        }
+        #pesan-khusus-card h2 {
+            color: #50c878;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #50c878;
+            padding-bottom: 10px;
+            font-size: 1.5em;
+        }
+        #pesan-khusus-card p {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Styling umum */
+        p {
+            line-height: 1.7em; 
+            margin-bottom: 20px; 
+        }
+        b {
+            color: #ffd700; 
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        button {
+            background: #ffd700;
+            color: #0a0f29;
+            border: none;
+            padding: 15px 30px; 
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+        button:hover:not(:disabled) { 
+            background: #ffe066; 
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+        }
+        button:disabled {
+            cursor: default;
+            opacity: 0.7;
+            background: #e0b0ff; 
+            color: #0a0f29;
+            transform: none;
+            box-shadow: 0 0 20px rgba(224, 176, 255, 0.7);
+        }
+
+        /* Style untuk emoji animasi */
+        .emoji-animation {
+            position: fixed; /* Menggunakan fixed agar tidak terpengaruh scroll */
+            font-size: 2em;
+            pointer-events: none;
+            opacity: 0;
+            animation: floatUpAndFade 4s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes floatUpAndFade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-70vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthday-music" loop preload="auto">
+        <source src="nikilowkey.mp3" type="audio/mp3">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <audio id="special-song" preload="auto">
+        <source src="TULUS - Monokrom (Official Music Video).mp3" type="audio/mp3">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <h1>🎉🎂 Selamat Ulang Tahun, Scinoraa! 🎂🎉</h1>
+
+    <div class="card">
+        <img src="696c4dde5f7c6da635cc57803d60b6c9.jpg" alt="gambar spesial untuk scinoraa" class="inside-card-image"/>
+        <p>hari ini, coba lihat ke belakang sejenak liat sejauh apa kamu udah jalan<br>
+        banyak hari yang mungkin berat, tapi kamu tetep bisa bertahan dan tetep punya senyum yang tulus sampai detik ini. itu nggak semua orang bisa **serius** deh</p>
+        
+        <p>aku nggak mau cuma ngucapin "panjang umur" atau "sehat selalu" doang<br>
+        aku mau kamu tau<br>
+        <b>kamu itu penting.</b><br>
+        keberadaanmu itu bikin hidup banyak orang jadi lebih berwarna,<br>
+        kamu nggak pernah tau berapa banyak senyum yang kamu tebarkan tanpa sadar</p>
+        
+        <p>aku berharap di usia yang baru ini<br>
+        kamu makin sering nemuin **kebahagiaan kebahagiaan kecil** yang sering kali kamu lewatkan karena sibuk<br>
+        kayak hujan di sore hari, obrolan santai yang nggak direncanain</p>
+        
+        <p>semoga mimpi mimpimu yang selama ini disimpan rapat,<br>
+        pelan pelan mulai berani keluar dan nemuin jalannya sendiri<br>
+        semoga kamu tetap **kuat**, tapi nggak kehilangan kelembutan hatimu<br>
+        karena dunia butuh orang sepertimu yang peduli, bukan cuma tampak peduli</p>
+        
+        <p>dan inget, scinoraa,<br>
+        kalau suatu saat kamu capek, sedih, atau bingung…<br>
+        di suatu tempat, ada matahari terbit yang nunggu kamu,<br>
+        ada orang yang **bersyukur** karena mengenalmu,<br>
+        dan masih banyak cerita baik yang belum selesai ditulis untukmu</p>
+        
+        <p>hari ini, rayakan dirimu sepenuhnya,<br>
+        <b>kamu layak.</b></p>
+        
+        <p>selamat ulang tahun, scinoraa.<br>
+        semoga tahun ini jadi bab **baru** yang penuh cerita indah,<br>
+        tawa, hati yang tenang,<br>
+        dan senyuman yang selalu kembali menghampiri</p>
+        
+        </div>
+    
+    
+    <div id="video-surprise">
+        <video controls>
+            <source src="lv_0_20251123134525.mp4" type="video/mp4">
+            Browser Anda tidak mendukung pemutaran video ini.
+        </video>
+    </div>
+
+    <button id="btnScinn">PENCET SCINN UNTUK HADIAHNYA! 🎁</button>
+
+    
+    <div id="surprise-collage">
+        <img class="single-gift-photo" src="20251124_114518.jpg" alt="foto hadiah spesial untuk scinoraa"/> 
+    </div>
+
+    <div class="button-group">
+        <a href="memoryy.html" class="styled-button" id="btnKenangan">
+            Lihat Kenangan Lainnya 💖 
+        </a>
+
+        <button id="btnPesanKhusus">BACA PESAN KHUSUS! 💌</button>
+
+        <button id="btnSongForYou">PLAY SONG FOR YOU 🎶</button>
+    </div>
+
+    <div id="pesan-khusus-card">
+        <h2>✨ pesan rahasia untuk scinoraa ✨</h2>
+        <p>
+            scinoraa, di balik semua ini, aku cuma mau kamu tau bahwa kamu adalah **inspirasi** yang nyata. bukan karena hal-hal besar, tapi karena caramu menghadapi hari-hari sulit dengan kepala tegak. 
+        </p>
+        <p>
+            teruslah bersinar dan jangan pernah meremehkan betapa berharganya dirimu. jalan di depan mungkin berliku, tapi aku percaya kamu punya semua kekuatan untuk melewatinya.
+        </p>
+        <p>
+            **terima kasih sudah menjadi kamu.** happy birthday lagi, my dearest friend. semoga segala yang kamu harapkan terwujud, satu per satu, di tahun ini! 🥳
+        </p>
+    </div>
+    <script>
+        // fungsi untuk mengaktifkan confetti
+        function launchConfetti() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6, x: 0.2 } });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6, x: 0.8 } });
+            confetti({ particleCount: 50, spread: 360, startVelocity: 20, origin: { y: 0.4 } });
+        }
+
+        // fungsi untuk animasi emoji kue
+        function launchCakeEmojis() {
+            const numberOfEmojis = 5; // Jumlah emoji per peluncuran
+            const emoji = '🎂'; 
+            
+            for (let i = 0; i < numberOfEmojis; i++) {
+                const emojiElement = document.createElement('div');
+                emojiElement.textContent = emoji;
+                emojiElement.classList.add('emoji-animation');
+                
+                // Posisi awal acak di bagian bawah layar
+                emojiElement.style.left = `${Math.random() * 90 + 5}%`; // 5% hingga 95% lebar layar
+                emojiElement.style.bottom = `-20px`; // Muncul dari bawah
+                
+                // Tambahkan sedikit penundaan pada setiap emoji agar terlihat menyebar
+                emojiElement.style.animationDelay = `${Math.random() * 0.5}s`; 
+                
+                document.body.appendChild(emojiElement);
+
+                // Hapus emoji setelah animasi selesai
+                emojiElement.addEventListener('animationend', () => {
+                    emojiElement.remove();
+                });
+            }
+        }
+        
+        // --- AUTORUN EMOJI SAAT HALAMAN DIMUAT ---
+        // Panggil launchCakeEmojis setiap 2 detik
+        window.onload = function() {
+            setInterval(launchCakeEmojis, 2000); 
+        };
+        // --- END AUTORUN ---
+
+
+        // skrip tombol kejutan (pencet scinn)
+        document.getElementById('btnScinn').addEventListener('click', function() {
+            const music = document.getElementById('birthday-music');
+            const collage = document.getElementById('surprise-collage');
+            const btnKenangan = document.getElementById('btnKenangan');
+            const btnPesanKhusus = document.getElementById('btnPesanKhusus');
+            const btnSongForYou = document.getElementById('btnSongForYou');
+
+
+            // 1. putar musik
+            music.play().catch(error => {
+                console.error("Autoplay music failed:", error);
+                alert('Ups! Musik tidak bisa diputar otomatis. Coba putar manual di browser kamu, ya!'); 
+            });
+            
+            // 2. tampilkan alert
+            alert('Tadaaaaaaa! Akuuu siapkannn sesuatuuu nihhh buattt kamuu scinn. Putarr musiknyaa dann lihat hadiah spesialnya yaa!');
+
+            // 3. luncurkan confetti (hanya confetti yang diaktifkan di sini)
+            setTimeout(launchConfetti, 0); 
+            setTimeout(launchConfetti, 500);
+            setTimeout(launchConfetti, 1000);
+
+            // 4. tampilkan bagian kolase kejutan & tombol menu
+            collage.style.opacity = '0'; 
+            collage.style.display = 'block';
+            
+            setTimeout(() => {
+                collage.style.transition = 'opacity 1.5s ease-in';
+                collage.style.opacity = '1';
+                collage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 10);
+            
+            // Tampilkan tombol lainnya setelah kejutan utama
+            btnKenangan.style.display = 'block'; 
+            btnPesanKhusus.style.display = 'block';
+            btnSongForYou.style.display = 'block';
+
+            // 5. nonaktifkan tombol
+            this.disabled = true;
+            this.textContent = "🥳 Happy Birthday! 🥳";
+            this.style.background = "#e0b0ff";
+        });
+        
+        // skrip tombol pesan khusus (menu baru)
+        document.getElementById('btnPesanKhusus').addEventListener('click', function() {
+            const pesanCard = document.getElementById('pesan-khusus-card');
+            
+            if (pesanCard.style.display === 'none' || pesanCard.style.display === '') {
+                pesanCard.style.display = 'block';
+                this.textContent = "TUTUP PESAN KHUSUS ❌";
+                this.style.background = "#C85050"; 
+                this.style.boxShadow = "0 6px 20px rgba(200, 80, 80, 0.4)";
+                
+                pesanCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } else {
+                pesanCard.style.display = 'none';
+                this.textContent = "BACA PESAN KHUSUS! 💌";
+                this.style.background = "#FFD700"; 
+                this.style.boxShadow = "0 6px 20px rgba(255, 215, 0, 0.4)";
+            }
+        });
+
+        // SKRIP UNTUK TOMBOL "PLAY SONG FOR YOU"
+        document.getElementById('btnSongForYou').addEventListener('click', function() {
+            const specialSong = document.getElementById('special-song');
+            const birthdayMusic = document.getElementById('birthday-music');
+
+            if (specialSong.paused) {
+                if (!birthdayMusic.paused) {
+                    birthdayMusic.pause();
+                }
+                specialSong.play();
+                this.textContent = "STOP SONG FOR YOU ⏸️";
+                this.style.background = "#FF69B4";
+                this.style.boxShadow = "0 6px 20px rgba(255, 105, 180, 0.4)";
+            } else {
+                specialSong.pause();
+                specialSong.currentTime = 0;
+                this.textContent = "PLAY SONG FOR YOU 🎶";
+                this.style.background = "#8A2BE2";
+                this.style.boxShadow = "0 6px 20px rgba(138, 43, 226, 0.4)";
+            }
+        });
+
+        // Mengatur ulang state tombol lagu ketika lagu selesai
+        document.getElementById('special-song').addEventListener('ended', function() {
+            const btnSongForYou = document.getElementById('btnSongForYou');
+            btnSongForYou.textContent = "PLAY SONG FOR YOU 🎶";
+            btnSongForYou.style.background = "#8A2BE2";
+            btnSongForYou.style.boxShadow = "0 6px 20px rgba(138, 43, 226, 0.4)";
+        });
+
+    </script>
+</body>
+</html>
